@@ -482,3 +482,17 @@ body {
     .topbar { left: 60px; }
     .kpi-grid { grid-template-columns: 1fr; }
 }
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .charts-row { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+    .sidebar { width: 60px; }
+    .sidebar .logo span, .nav-item span:not(.icon), .nav-submenu, .nav-group .nav-item span:not(.icon) { display: none; }
+    .main-content { margin-left: 60px; max-width: calc(100vw - 60px); }
+    .topbar { left: 60px; }
+    .kpi-grid { grid-template-columns: 1fr; }
+}
