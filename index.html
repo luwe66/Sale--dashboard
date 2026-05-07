@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LLLuwe - Sales Dashboard</title>
+    <title>LLLuwe - 销售仪表盘</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
@@ -17,52 +17,66 @@
             <img src="icons/menu-line 1.svg" width="20" height="20" class="menu-icon">
         </div>
         <nav class="nav-menu">
-            <a class="nav-item" data-page="dashboard">
+            <a class="nav-item" data-page="dashboard"
+               data-icon-line="icons/dashboard-3-line 1.svg"
+               data-icon-fill="icons/dashboard-3-fill 1.svg">
                 <span class="icon"><img src="icons/dashboard-3-line 1.svg" width="20" height="20"></span>
-                <span>Dashboard</span>
+                <span>仪表盘</span>
             </a>
-            <div class="nav-group">
-                <a class="nav-item active" data-page="report">
+            <div class="nav-group open" id="report-group">
+                <a class="nav-item active" data-page="report"
+                   data-icon-line="icons/folder-chart-line 1.svg"
+                   data-icon-fill="icons/folder-chart-fill 1.svg">
                     <span class="icon">
-                        <img src="icons/folder-chart-line 1.svg" width="20" height="20">
+                        <img src="icons/folder-chart-fill 1.svg" width="20" height="20">
                     </span>
-                    <span>Report</span>
-                    <span class="nav-arrow">&#8963;</span>
+                    <span>报表</span>
+                    <svg class="nav-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(180deg)">
+                        <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </a>
-                <div class="nav-submenu">
-                    <a>Overall</a>
-                    <a class="active">Sales Report</a>
-                    <a>Income Report</a>
-                    <a>Deal Report</a>
+                <div class="nav-submenu" style="display:flex;">
+                    <a>总览</a>
+                    <a class="active">销售报表</a>
+                    <a>收入报表</a>
+                    <a>成交报表</a>
                 </div>
             </div>
-            <a class="nav-item" data-page="">
+            <a class="nav-item" data-page=""
+               data-icon-line="icons/contract-line 1.svg"
+               data-icon-fill="icons/contract-fill 1.svg">
                 <span class="icon"><img src="icons/contract-line 1.svg" width="20" height="20"></span>
-                <span>Contract</span>
+                <span>合同</span>
             </a>
-            <a class="nav-item" data-page="">
+            <a class="nav-item" data-page=""
+               data-icon-line="icons/hotel-line 1.svg"
+               data-icon-fill="icons/hotel-fill 1.svg">
                 <span class="icon"><img src="icons/hotel-line 1.svg" width="20" height="20"></span>
-                <span>Company</span>
+                <span>公司</span>
             </a>
-            <a class="nav-item" data-page="">
-                <span class="icon"><img src="icons/folder-chart-fill 1.svg" width="20" height="20"></span>
-                <span>Deals</span>
-            </a>
-            <a class="nav-item" data-page="">
+            <a class="nav-item" data-page=""
+               data-icon-line="icons/calendar-todo-line 1.svg"
+               data-icon-fill="icons/calendar-todo-fill 1.svg">
                 <span class="icon"><img src="icons/calendar-todo-line 1.svg" width="20" height="20"></span>
-                <span>Task</span>
+                <span>任务</span>
             </a>
-            <a class="nav-item" data-page="">
+            <a class="nav-item" data-page=""
+               data-icon-line="icons/server-line 1.svg"
+               data-icon-fill="icons/server-fill 1.svg">
                 <span class="icon"><img src="icons/server-line 1.svg" width="20" height="20"></span>
-                <span>Products</span>
+                <span>产品</span>
             </a>
-            <a class="nav-item" data-page="">
+            <a class="nav-item" data-page=""
+               data-icon-line="icons/folder-5-line 1.svg"
+               data-icon-fill="icons/folder-5-fill 1.svg">
                 <span class="icon"><img src="icons/folder-5-line 1.svg" width="20" height="20"></span>
-                <span>Documents</span>
+                <span>文档</span>
             </a>
-            <a class="nav-item" data-page="">
+            <a class="nav-item" data-page=""
+               data-icon-line="icons/settings-4-line 1.svg"
+               data-icon-fill="icons/settings-4-fill 1.svg">
                 <span class="icon"><img src="icons/settings-4-line 1.svg" width="20" height="20"></span>
-                <span>Settings</span>
+                <span>设置</span>
             </a>
         </nav>
     </aside>
@@ -71,7 +85,7 @@
     <div class="topbar">
         <div class="search-bar">
             <img src="icons/search-ai-4-line 1.svg" width="20" height="20" class="search-icon">
-            <input type="text" placeholder="Search here...">
+            <input type="text" placeholder="搜索...">
         </div>
         <div class="header-actions">
             <button class="icon-btn"><img src="icons/mail-line 1.svg" width="20" height="20"></button>
@@ -89,61 +103,61 @@
     <!-- Main Content -->
     <main class="main-content">
 
-        <!-- Dashboard Page -->
+        <!-- 仪表盘页面 -->
         <div id="dashboard-page" class="page">
             <div class="page-header">
-                <h1>Sales Report</h1>
+                <h1>销售报表</h1>
                 <div class="page-actions">
-                    <button class="btn btn-outline">Sales Report</button>
-                    <button class="btn btn-outline">Request custom report</button>
+                    <button class="btn btn-outline">销售报表</button>
+                    <button class="btn btn-outline">申请自定义报表</button>
                 </div>
             </div>
             <div class="kpi-grid">
                 <div class="kpi-card">
-                    <div class="kpi-header"><span class="kpi-label">Net Income</span><button class="more-btn"><img src="icons/more-line 1.svg" width="24" height="24"></button></div>
+                    <div class="kpi-header"><span class="kpi-label">净收入</span><button class="more-btn"><img src="icons/more-line 1.svg" width="24" height="24"></button></div>
                     <div class="kpi-value">$14,569</div>
-                    <div class="kpi-change positive">↑ +20.3% from last month</div>
+                    <div class="kpi-change positive">↑ +20.3% 较上月</div>
                 </div>
                 <div class="kpi-card">
-                    <div class="kpi-header"><span class="kpi-label">Order per Month</span><button class="more-btn"><img src="icons/more-line 1.svg" width="24" height="24"></button></div>
+                    <div class="kpi-header"><span class="kpi-label">月均订单量</span><button class="more-btn"><img src="icons/more-line 1.svg" width="24" height="24"></button></div>
                     <div class="kpi-value">142</div>
-                    <div class="kpi-change negative">↓ +20.3% from last month</div>
+                    <div class="kpi-change negative">↓ +20.3% 较上月</div>
                 </div>
                 <div class="kpi-card">
-                    <div class="kpi-header"><span class="kpi-label">Average Contract</span><button class="more-btn"><img src="icons/more-line 1.svg" width="24" height="24"></button></div>
+                    <div class="kpi-header"><span class="kpi-label">平均合同金额</span><button class="more-btn"><img src="icons/more-line 1.svg" width="24" height="24"></button></div>
                     <div class="kpi-value">$8,541</div>
-                    <div class="kpi-change positive">↑ +20.3% from last month</div>
+                    <div class="kpi-change positive">↑ +20.3% 较上月</div>
                 </div>
                 <div class="kpi-card">
-                    <div class="kpi-header"><span class="kpi-label">Growth Rate</span><button class="more-btn"><img src="icons/more-line 1.svg" width="24" height="24"></button></div>
+                    <div class="kpi-header"><span class="kpi-label">增长率</span><button class="more-btn"><img src="icons/more-line 1.svg" width="24" height="24"></button></div>
                     <div class="kpi-value">78.2%</div>
-                    <div class="kpi-change negative">↓ +20.3% from last month</div>
+                    <div class="kpi-change negative">↓ +20.3% 较上月</div>
                 </div>
             </div>
             <div class="charts-row">
                 <div class="chart-card">
                     <div class="chart-header">
-                        <h3>Total Sales <span class="help-icon"><img src="icons/information-line 1.svg" width="14" height="14"></span></h3>
+                        <h3>总销售额 <span class="help-icon"><img src="icons/information-line 1.svg" width="14" height="14"></span></h3>
                         <div class="chart-actions">
-                            <select class="chart-filter"><option>Annually</option><option>Monthly</option></select>
-                            <button class="more-btn">···</button>
+                            <select class="chart-filter"><option>按年</option><option>按月</option></select>
+                            <button class="more-btn"><img src="icons/more-line 1.svg" width="24" height="24"></button>
                         </div>
                     </div>
                     <div style="height:238px;position:relative"><canvas id="totalSalesChart"></canvas></div>
                 </div>
                 <div class="chart-card">
                     <div class="chart-header">
-                        <h3>Sales Activity <span class="help-icon"><img src="icons/information-line 1.svg" width="14" height="14"></span></h3>
-                        <button class="more-btn">···</button>
+                        <h3>销售活动 <span class="help-icon"><img src="icons/information-line 1.svg" width="14" height="14"></span></h3>
+                        <button class="more-btn"><img src="icons/more-line 1.svg" width="24" height="24"></button>
                     </div>
                     <div style="height:238px;position:relative"><canvas id="salesActivityChart"></canvas></div>
                 </div>
             </div>
             <div class="chart-card full-width">
                 <div class="chart-header">
-                    <h3>Top Companies <span class="help-icon"><img src="icons/information-line 1.svg" width="14" height="14"></span></h3>
+                    <h3>头部客户 <span class="help-icon"><img src="icons/information-line 1.svg" width="14" height="14"></span></h3>
                     <div class="chart-actions">
-                        <select class="chart-filter"><option>Categories A1</option></select>
+                        <select class="chart-filter"><option>类别 A1</option></select>
                         <button class="more-btn"><img src="icons/more-line 1.svg" width="24" height="24"></button>
                     </div>
                 </div>
@@ -151,21 +165,21 @@
             </div>
         </div>
 
-        <!-- Report Page -->
+        <!-- 报表页面 -->
         <div id="report-page" class="page active">
             <div class="page-header">
-                <h1>Sales Report</h1>
+                <h1>销售报表</h1>
                 <div class="page-actions">
-                    <button class="btn btn-outline">Sales Report</button>
-                    <button class="btn btn-outline">Request custom report</button>
+                    <button class="btn btn-outline">销售报表</button>
+                    <button class="btn btn-outline">申请自定义报表</button>
                 </div>
             </div>
             <div class="charts-row">
                 <div class="chart-card">
                     <div class="chart-header">
-                        <h3>Targets by Month by Value <span class="help-icon"><img src="icons/information-line 1.svg" width="14" height="14"></span></h3>
+                        <h3>月度目标完成情况 <span class="help-icon"><img src="icons/information-line 1.svg" width="14" height="14"></span></h3>
                         <div class="chart-actions">
-                            <select class="chart-filter"><option>Monthly</option><option>Quarterly</option></select>
+                            <select class="chart-filter"><option>按月</option><option>按季度</option></select>
                             <button class="more-btn"><img src="icons/more-line 1.svg" width="24" height="24"></button>
                         </div>
                     </div>
@@ -173,9 +187,9 @@
                 </div>
                 <div class="chart-card">
                     <div class="chart-header">
-                        <h3>Sales Performance <span class="help-icon"><img src="icons/information-line 1.svg" width="14" height="14"></span></h3>
+                        <h3>销售业绩 <span class="help-icon"><img src="icons/information-line 1.svg" width="14" height="14"></span></h3>
                         <div class="chart-actions">
-                            <select class="chart-filter"><option>Annually</option><option>Monthly</option></select>
+                            <select class="chart-filter"><option>按年</option><option>按月</option></select>
                             <button class="more-btn"><img src="icons/more-line 1.svg" width="24" height="24"></button>
                         </div>
                     </div>
@@ -185,16 +199,16 @@
             <div class="charts-row">
                 <div class="chart-card">
                     <div class="chart-header">
-                        <h3>Top Companies <span class="help-icon"><img src="icons/information-line 1.svg" width="14" height="14"></span></h3>
+                        <h3>头部客户 <span class="help-icon"><img src="icons/information-line 1.svg" width="14" height="14"></span></h3>
                         <button class="more-btn"><img src="icons/more-line 1.svg" width="24" height="24"></button>
                     </div>
                     <div class="table-container">
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Companies ⇅</th>
-                                    <th>Sales volume ⇅</th>
-                                    <th>% of sales ⇅</th>
+                                    <th>公司名称 ⇅</th>
+                                    <th>销售额 ⇅</th>
+                                    <th>占比 ⇅</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -209,7 +223,7 @@
                 </div>
                 <div class="chart-card">
                     <div class="chart-header">
-                        <h3>New Deals by Month This year <span class="help-icon"><img src="icons/information-line 1.svg" width="14" height="14"></span></h3>
+                        <h3>本年度月度新增成交 <span class="help-icon"><img src="icons/information-line 1.svg" width="14" height="14"></span></h3>
                         <button class="more-btn"><img src="icons/more-line 1.svg" width="24" height="24"></button>
                     </div>
                     <div style="height:238px;position:relative"><canvas id="newDealsChart"></canvas></div>

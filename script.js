@@ -51,22 +51,47 @@ const chartDefaults = {
 };
 
 // Nav
+function setNavIcon(item, isActive) {
+    const img = item.querySelector('.icon img');
+    if (!img) return;
+    const lineSrc = item.getAttribute('data-icon-line');
+    const fillSrc = item.getAttribute('data-icon-fill');
+    if (isActive && fillSrc) {
+        img.src = fillSrc;
+    } else if (lineSrc) {
+        img.src = lineSrc;
+    }
+}
+
 document.querySelectorAll('.nav-item[data-page]').forEach(item => {
     item.addEventListener('click', e => {
         e.preventDefault();
         const page = item.getAttribute('data-page');
         if (!page) return;
 
-        // 更新所有 nav-item active 状态
-        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        item.classList.add('active');
+        // 所有 nav-item 恢复 line 图标
+        document.querySelectorAll('.nav-item').forEach(n => {
+            n.classList.remove('active');
+            setNavIcon(n, false);
+        });
 
-        // Report 展开/收起子菜单
+        // 当前项设为 active，切换 fill 图标
+        item.classList.add('active');
+        setNavIcon(item, true);
+
+        // Report group 展开/收起
+        const reportGroup = document.getElementById('report-group');
         const navSubmenu = document.querySelector('.nav-submenu');
+        const navArrow = document.querySelector('.nav-arrow');
+
         if (page === 'report') {
+            reportGroup.classList.add('open');
             navSubmenu.style.display = 'flex';
+            if (navArrow) navArrow.style.transform = 'rotate(180deg)';
         } else {
+            reportGroup.classList.remove('open');
             navSubmenu.style.display = 'none';
+            if (navArrow) navArrow.style.transform = 'rotate(0deg)';
         }
 
         // 切换页面
@@ -89,10 +114,10 @@ function initDashboardCharts() {
     new Chart(document.getElementById('totalSalesChart'), {
         type: 'line',
         data: {
-            labels: ['Jan 2018', 'Jan 2019', 'Jan 2020', 'Jan 2021', 'Jan 2022', 'Jan 2023'],
+            labels: ['2018年1月', '2019年1月', '2020年1月', '2021年1月', '2022年1月', '2023年1月'],
             datasets: [
                 {
-                    label: 'Revenue',
+                    label: '营收',
                     data: [8000, 12000, 10000, 15124, 11000, 9000],
                     borderColor: COLORS.lineBlack,
                     backgroundColor: 'transparent',
@@ -101,7 +126,7 @@ function initDashboardCharts() {
                     borderWidth: 2
                 },
                 {
-                    label: 'Order',
+                    label: '订单量',
                     data: [6000, 7000, 11000, 8000, 13000, 7000],
                     borderColor: COLORS.lineGreen,
                     backgroundColor: 'transparent',
@@ -140,7 +165,7 @@ function initDashboardCharts() {
     new Chart(document.getElementById('salesActivityChart'), {
         type: 'doughnut',
         data: {
-            labels: ['Call', 'Preparation', 'Email', 'Lead/research', 'Other'],
+            labels: ['电话', '准备', '邮件', '线索/调研', '其他'],
             datasets: [{
                 data: [35, 10, 8, 22, 25],
                 backgroundColor: ['#4ECDC4', '#FFE66D', '#A8DADC', '#95E1D3', '#2C3E50'],
@@ -170,10 +195,10 @@ function initDashboardCharts() {
         data: {
             labels: ['Andrew', 'Nathasya', 'Camilia', 'Bertha', 'Monica'],
             datasets: [
-                { label: 'Competed',     data: [16, 14, 11, 8, 7],           backgroundColor: '#8de3f5' },
-                { label: 'Waiting',      data: [1.5, 1.5, 1.5, 0.5, 0.5],   backgroundColor: '#a5f6c6' },
-                { label: 'In Progress',  data: [0.8, 0.5, 0.3, 0.3, 0.2],   backgroundColor: '#c4c6fa' },
-                { label: 'Not Started',  data: [1, 1, 0.5, 0.5, 0],         backgroundColor: '#ebac4e' }
+                { label: '已完成',     data: [16, 14, 11, 8, 7],           backgroundColor: '#8de3f5' },
+                { label: '等待中',      data: [1.5, 1.5, 1.5, 0.5, 0.5],   backgroundColor: '#a5f6c6' },
+                { label: '进行中',  data: [0.8, 0.5, 0.3, 0.3, 0.2],   backgroundColor: '#c4c6fa' },
+                { label: '未开始',  data: [1, 1, 0.5, 0.5, 0],         backgroundColor: '#ebac4e' }
             ]
         },
         options: {
@@ -205,8 +230,8 @@ function initReportCharts() {
         data: {
             labels: ['Anthony', 'Harry', 'Tommy', 'Bertha', 'Monica'],
             datasets: [
-                { label: 'Archived Targets',  data: [25, 22, 28, 19, 27], backgroundColor: COLORS.barBlue },
-                { label: 'Remaining Targets', data: [25, 28, 22, 31, 23], backgroundColor: COLORS.barOrange }
+                { label: '已达成目标',  data: [25, 22, 28, 19, 27], backgroundColor: COLORS.barBlue },
+                { label: '剩余目标', data: [25, 28, 22, 31, 23], backgroundColor: COLORS.barOrange }
             ]
         },
         options: {
@@ -235,10 +260,10 @@ function initReportCharts() {
     new Chart(document.getElementById('performanceChart'), {
         type: 'line',
         data: {
-            labels: ['Jan 2018', 'Jan 2019', 'Jan 2020', 'Jan 2021', 'Jan 2022', 'Jan 2023'],
+            labels: ['2018年1月', '2019年1月', '2020年1月', '2021年1月', '2022年1月', '2023年1月'],
             datasets: [
                 {
-                    label: 'Revenue',
+                    label: '营收',
                     data: [5000, 10000, 13000, 15124, 10000, 7000],
                     borderColor: COLORS.lineBlack,
                     backgroundColor: 'transparent',
@@ -247,7 +272,7 @@ function initReportCharts() {
                     borderWidth: 2
                 },
                 {
-                    label: 'Order',
+                    label: '订单量',
                     data: [4000, 7000, 9000, 7000, 11000, 6000],
                     borderColor: COLORS.lineGreen,
                     backgroundColor: 'transparent',
@@ -285,7 +310,7 @@ function initReportCharts() {
     new Chart(document.getElementById('newDealsChart'), {
         type: 'bar',
         data: {
-            labels: ['Jan','Feb','Mar','Apl','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+            labels: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
             datasets: [{
                 data: [2, 4, 5, 4, 9, 11, 14, 12, 16, 5, 7, 5],
                 backgroundColor: COLORS.lineBlack,

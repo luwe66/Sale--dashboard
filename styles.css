@@ -15,7 +15,7 @@ body {
     min-height: 100vh;
 }
 
-/* Sidebar */
+/* ── Sidebar ── */
 .sidebar {
     width: 264px;
     background: #1f1f1f;
@@ -25,6 +25,7 @@ body {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
 }
 
 .logo {
@@ -35,6 +36,13 @@ body {
     height: 64px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+
+.logo .menu-icon {
+    filter: brightness(0) invert(0.6);
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
 .nav-menu {
@@ -53,7 +61,7 @@ body {
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: background 0.2s, color 0.2s;
     gap: 12px;
 }
 
@@ -62,37 +70,63 @@ body {
     color: #fff;
 }
 
+/* active 状态：白色背景块 + 白色文字 */
 .nav-item.active {
+    background: rgba(255, 255, 255, 0.12);
     color: #fff;
 }
 
 .nav-item .icon {
-    font-size: 16px;
     width: 20px;
-    text-align: center;
+    height: 20px;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Report submenu */
+/* 默认图标：60% 白色（偏灰） */
+.nav-item .icon img {
+    filter: brightness(0) invert(0.6);
+    transition: filter 0.2s;
+    display: block;
+}
+
+/* hover：纯白 */
+.nav-item:hover .icon img {
+    filter: brightness(0) invert(1);
+}
+
+/* active：蓝色 (#4A9EFF 近似) */
+.nav-item.active .icon img {
+    filter: brightness(0) saturate(100%) invert(55%) sepia(80%) saturate(500%) hue-rotate(185deg) brightness(105%);
+}
+
+/* ── Report submenu group ── */
 .nav-group {
-    background: #2e2e2e;
     border-radius: 4px;
-    padding-bottom: 12px;
+    overflow: hidden;
+}
+
+.nav-group.open {
+    background: #2e2e2e;
+    padding-bottom: 8px;
 }
 
 .nav-group .nav-item {
     border-radius: 4px;
 }
 
-.nav-group .nav-item.active {
-    color: #fff;
+.nav-arrow {
+    margin-left: auto;
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
 }
 
 .nav-submenu {
     padding: 0 0 0 48px;
-    display: flex;
+    display: none;
     flex-direction: column;
-    gap: 12px;
 }
 
 .nav-submenu a {
@@ -101,6 +135,9 @@ body {
     text-decoration: none;
     cursor: pointer;
     transition: color 0.2s;
+    height: 32px;
+    display: flex;
+    align-items: center;
 }
 
 .nav-submenu a:hover,
@@ -109,23 +146,173 @@ body {
     font-weight: 600;
 }
 
-/* Main Content */
+/* ── Topbar ── */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 264px;
+    right: 0;
+    height: 64px;
+    background: #1f1f1f;
+    display: flex;
+    align-items: center;
+    padding: 0 24px 0 0;
+    z-index: 100;
+}
+
+/* 搜索框：紧贴侧边栏右边缘，无左边距 */
+.search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-left: 0;
+}
+
+.search-bar .search-icon {
+    position: absolute;
+    left: 16px;
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(0.35);
+    pointer-events: none;
+    display: block;
+}
+
+.search-bar input {
+    background: #2e2e2e;
+    border: none;
+    padding: 8px 16px 8px 44px;
+    border-radius: 4px;
+    width: 324px;
+    height: 40px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'PingFang SC', sans-serif;
+}
+
+.search-bar input::placeholder { color: rgba(255, 255, 255, 0.35); }
+.search-bar input:focus { outline: none; border-color: rgba(255, 255, 255, 0.3); }
+
+/* 右侧操作区推到最右 */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-left: auto;
+}
+
+.search-bar .search-icon {
+    position: absolute;
+    left: 12px;
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(0.35);
+    pointer-events: none;
+    display: block;
+}
+
+.search-bar input {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 8px 16px 8px 40px;
+    border-radius: 4px;
+    width: 324px;
+    height: 40px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'PingFang SC', sans-serif;
+}
+
+.search-bar input::placeholder { color: rgba(255, 255, 255, 0.35); }
+.search-bar input:focus { outline: none; border-color: rgba(255, 255, 255, 0.3); }
+
+/* 右侧操作区推到最右边 */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-left: auto;
+}
+
+/* 顶栏图标按钮：白色 60% */
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(0.6);
+    display: block;
+    transition: filter 0.2s;
+}
+
+.icon-btn:hover img {
+    filter: brightness(0) invert(1);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-profile > img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.3;
+    white-space: nowrap;
+}
+
+.user-sub {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.3;
+    white-space: nowrap;
+}
+
+/* ── Main Content ── */
 .main-content {
     flex: 1;
     margin-left: 264px;
     padding: 8px;
-    max-width: calc(100vw - 264px);
+    /* 关键：让内容区宽度随窗口自适应 */
+    min-width: 0;
+    width: calc(100vw - 264px);
     overflow-x: hidden;
     padding-top: 72px;
 }
 
-/* Page */
+/* ── Page ── */
 .page {
     display: none;
     background: #ebebeb;
     border-radius: 8px;
     padding: 24px;
     min-height: calc(100vh - 80px);
+    /* 宽度完全跟随父容器 */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .page.active {
@@ -168,11 +355,9 @@ body {
     font-family: 'PingFang SC', sans-serif;
 }
 
-.btn-outline:hover {
-    background: #f5f5f5;
-}
+.btn-outline:hover { background: #f5f5f5; }
 
-/* KPI Cards */
+/* ── KPI Cards ── */
 .kpi-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -185,7 +370,7 @@ body {
     padding: 20px;
     border-radius: 8px;
     border: 1px solid rgba(0, 0, 0, 0.16);
-    height: 143px;
+    min-height: 143px;
     box-sizing: border-box;
 }
 
@@ -204,10 +389,22 @@ body {
 .more-btn {
     background: none;
     border: none;
-    font-size: 18px;
     cursor: pointer;
-    color: rgba(0, 0, 0, 0.4);
-    line-height: 1;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.more-btn img {
+    filter: brightness(0) invert(0.4);
+    display: block;
+    transition: filter 0.2s;
+}
+
+.more-btn:hover img {
+    filter: brightness(0) invert(0.7);
 }
 
 .kpi-value {
@@ -227,16 +424,15 @@ body {
 .kpi-change.positive { color: #27ae60; }
 .kpi-change.negative { color: #e74c3c; }
 
-/* Charts Layout */
+/* ── Charts Layout ── */
 .charts-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
     margin-bottom: 16px;
-}
-
-.charts-row.single {
-    grid-template-columns: 1fr;
+    /* 关键：让图表随容器自适应宽度 */
+    width: 100%;
+    min-width: 0;
 }
 
 .chart-card {
@@ -246,14 +442,16 @@ body {
     border: 1px solid rgba(0, 0, 0, 0.16);
     height: 338px;
     box-sizing: border-box;
+    /* 关键：防止图表撑破容器 */
+    min-width: 0;
+    overflow: hidden;
 }
 
-/* Dashboard 下半 Top Companies 单行 */
 .chart-card.full-width {
     height: 363px;
+    width: 100%;
 }
 
-/* Report 页面下半两列 */
 #report-page .charts-row:last-child .chart-card {
     height: 338px;
 }
@@ -274,16 +472,22 @@ body {
     gap: 4px;
 }
 
-.chart-header h3 .help-icon {
-    font-size: 12px;
-    color: rgba(0, 0, 0, 0.4);
+.help-icon {
+    display: inline-flex;
+    align-items: center;
     cursor: help;
+}
+
+.help-icon img {
+    filter: brightness(0) invert(0.4);
+    display: block;
 }
 
 .chart-actions {
     display: flex;
     align-items: center;
     gap: 16px;
+    flex-shrink: 0;
 }
 
 .chart-filter {
@@ -299,7 +503,7 @@ body {
     height: 28px;
 }
 
-/* Table */
+/* ── Table ── */
 .table-container { overflow-x: auto; }
 
 .data-table {
@@ -317,161 +521,14 @@ body {
 }
 
 .data-table td {
-    padding: 0 0;
+    padding: 0;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.6);
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     height: 44px;
 }
 
-/* Header bar */
-.topbar {
-    position: fixed;
-    top: 0;
-    left: 264px;
-    right: 0;
-    height: 64px;
-    background: #1f1f1f;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 24px;
-    z-index: 100;
-}
-
-.search-bar input {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.12);
-    padding: 8px 16px;
-    border-radius: 4px;
-    width: 280px;
-    font-size: 14px;
-    color: rgba(255,255,255,0.6);
-}
-
-.search-bar input::placeholder { color: rgba(255,255,255,0.35); }
-.search-bar input:focus { outline: none; border-color: rgba(255,255,255,0.3); }
-
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-.icon-btn {
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    padding: 6px;
-    color: rgba(255,255,255,0.6);
-}
-
-.user-profile {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #fff;
-    font-size: 14px;
-}
-
-.user-profile img {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-}
-
-.user-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.user-name {
-    font-size: 12px;
-    font-weight: 600;
-    color: #fff;
-    line-height: 1.3;
-}
-
-.user-sub {
-    font-size: 12px;
-    color: rgba(255,255,255,0.55);
-    line-height: 1.3;
-}
-
-/* 侧边栏图标颜色 */
-.nav-item .icon img,
-.nav-item .icon svg {
-    filter: brightness(0) invert(0.6);
-    transition: filter 0.2s;
-}
-
-.nav-item:hover .icon img,
-.nav-item.active .icon img {
-    filter: brightness(0) invert(1);
-}
-
-/* menu icon in logo */
-.logo .menu-icon {
-    filter: brightness(0) invert(0.6);
-    cursor: pointer;
-    margin-left: auto;
-}
-
-/* nav arrow */
-.nav-arrow {
-    margin-left: auto;
-    font-size: 12px;
-    color: rgba(255,255,255,0.6);
-    line-height: 1;
-}
-
-/* topbar icons */
-.icon-btn img {
-    filter: brightness(0) invert(0.6);
-    display: block;
-}
-
-.icon-btn:hover img {
-    filter: brightness(0) invert(1);
-}
-
-/* search bar with icon */
-.search-bar {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.search-bar .search-icon {
-    position: absolute;
-    left: 12px;
-    filter: brightness(0) invert(0.35);
-    pointer-events: none;
-}
-
-.search-bar input {
-    padding-left: 40px;
-}
-
-/* help icon in chart headers */
-.help-icon img {
-    filter: brightness(0) invert(0.4);
-    vertical-align: middle;
-    display: inline-block;
-}
-
-/* more btn with svg */
-.more-btn img {
-    filter: brightness(0) invert(0.4);
-    display: block;
-}
-
-.more-btn:hover img {
-    filter: brightness(0) invert(0.7);
-}
-
-/* Responsive */
+/* ── Responsive ── */
 @media (max-width: 1200px) {
     .kpi-grid { grid-template-columns: repeat(2, 1fr); }
     .charts-row { grid-template-columns: 1fr; }
@@ -479,8 +536,11 @@ body {
 
 @media (max-width: 768px) {
     .sidebar { width: 60px; }
-    .sidebar .logo span, .nav-item span:not(.icon), .nav-submenu, .nav-group .nav-item span:not(.icon) { display: none; }
-    .main-content { margin-left: 60px; max-width: calc(100vw - 60px); }
+    .sidebar .logo span,
+    .nav-item span:not(.icon),
+    .nav-submenu,
+    .nav-group .nav-item span:not(.icon) { display: none; }
+    .main-content { margin-left: 60px; width: calc(100vw - 60px); }
     .topbar { left: 60px; }
     .kpi-grid { grid-template-columns: 1fr; }
 }
