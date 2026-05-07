@@ -1,3 +1,31 @@
+// Sales Activity 百分比标注插件（需在图表初始化前注册）
+const doughnutLabelPlugin = {
+    id: 'doughnutOuterLabels',
+    afterDraw(chart) {
+        if (chart.canvas.id !== 'salesActivityChart') return;
+        const { ctx, data } = chart;
+        const dataset = data.datasets[0];
+        const total = dataset.data.reduce((a, b) => a + b, 0);
+        const meta = chart.getDatasetMeta(0);
+        meta.data.forEach((arc, i) => {
+            const pct = Math.round(dataset.data[i] / total * 100);
+            if (pct < 8) return;
+            const angle = (arc.startAngle + arc.endAngle) / 2;
+            const outerR = arc.outerRadius + 18;
+            const x = arc.x + Math.cos(angle) * outerR;
+            const y = arc.y + Math.sin(angle) * outerR;
+            ctx.save();
+            ctx.font = '600 12px PingFang SC, sans-serif';
+            ctx.fillStyle = 'rgba(0,0,0,0.9)';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(pct + '%', x, y);
+            ctx.restore();
+        });
+    }
+};
+Chart.register(doughnutLabelPlugin);
+
 // Colors from Figma
 const COLORS = {
     sidebar: '#1f1f1f',
@@ -126,6 +154,10 @@ function initDashboardCharts() {
                     display: true,
                     position: 'bottom',
                     labels: { boxWidth: 10, font: { size: 12 }, color: COLORS.textSecondary }
+                },
+                tooltip: { enabled: true },
+                datalabels: {
+                    display: false
                 }
             },
             cutout: '65%'
@@ -136,12 +168,12 @@ function initDashboardCharts() {
     new Chart(document.getElementById('topCompaniesChart'), {
         type: 'bar',
         data: {
-            labels: ['Accinov', 'Nothmore', 'Camilla', 'Berthe', 'Monica'],
+            labels: ['Andrew', 'Nathasya', 'Camilia', 'Bertha', 'Monica'],
             datasets: [
-                { label: 'Completed', data: [16, 14, 11, 8, 7], backgroundColor: '#4ECDC4' },
-                { label: 'Waiting',   data: [1, 1, 1, 0.5, 0.5], backgroundColor: '#FFE66D' },
-                { label: 'In Progress', data: [1, 1, 0.5, 0.5, 0.5], backgroundColor: '#A8DADC' },
-                { label: 'Not Started', data: [1, 1, 0.5, 0.5, 0], backgroundColor: '#FF6B6B' }
+                { label: 'Competed',     data: [16, 14, 11, 8, 7],           backgroundColor: '#8de3f5' },
+                { label: 'Waiting',      data: [1.5, 1.5, 1.5, 0.5, 0.5],   backgroundColor: '#a5f6c6' },
+                { label: 'In Progress',  data: [0.8, 0.5, 0.3, 0.3, 0.2],   backgroundColor: '#c4c6fa' },
+                { label: 'Not Started',  data: [1, 1, 0.5, 0.5, 0],         backgroundColor: '#ebac4e' }
             ]
         },
         options: {
@@ -188,7 +220,12 @@ function initReportCharts() {
                 }
             },
             scales: {
-                x: { stacked: true, max: 50, grid: { color: COLORS.gridLine }, ticks: { color: COLORS.textMuted, font: { size: 12 } } },
+                x: {
+                    stacked: true,
+                    max: 50,
+                    grid: { color: COLORS.gridLine },
+                    ticks: { stepSize: 10, color: COLORS.textMuted, font: { size: 12 } }
+                },
                 y: { stacked: true, grid: { display: false }, ticks: { color: COLORS.textMuted, font: { size: 12 } } }
             }
         }
