@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "name": "Auto Git Push on Save",
+  "description": "每次保存 .html、.css 或 .js 文件时，自动执行 git add、commit 和 push，将改动同步到 GitHub",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "*.html",
+      "*.css",
+      "*.js"
+    ]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "git add -A && git commit -m \"Auto update: $(date '+%Y-%m-%d %H:%M:%S')\" && git push"
+  }
+}
