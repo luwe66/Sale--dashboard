@@ -202,39 +202,6 @@ body {
     margin-left: auto;
 }
 
-.search-bar .search-icon {
-    position: absolute;
-    left: 12px;
-    width: 20px;
-    height: 20px;
-    filter: brightness(0) invert(0.35);
-    pointer-events: none;
-    display: block;
-}
-
-.search-bar input {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 8px 16px 8px 40px;
-    border-radius: 4px;
-    width: 324px;
-    height: 40px;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.6);
-    font-family: 'PingFang SC', sans-serif;
-}
-
-.search-bar input::placeholder { color: rgba(255, 255, 255, 0.35); }
-.search-bar input:focus { outline: none; border-color: rgba(255, 255, 255, 0.3); }
-
-/* 右侧操作区推到最右边 */
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-left: auto;
-}
-
 /* 顶栏图标按钮：白色 60% */
 .icon-btn {
     background: none;
@@ -544,3 +511,4 @@ body {
     .topbar { left: 60px; }
     .kpi-grid { grid-template-columns: 1fr; }
 }
+
