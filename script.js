@@ -114,11 +114,11 @@ function initDashboardCharts() {
     new Chart(document.getElementById('totalSalesChart'), {
         type: 'line',
         data: {
-            labels: ['2018年1月', '2019年1月', '2020年1月', '2021年1月', '2022年1月', '2023年1月'],
+            labels: ['2014年', '2015年', '2016年', '2017年'],
             datasets: [
                 {
                     label: '营收',
-                    data: [8000, 12000, 10000, 15124, 11000, 9000],
+                    data: [484247, 470533, 609206, 733215],
                     borderColor: COLORS.lineBlack,
                     backgroundColor: 'transparent',
                     tension: 0.3,
@@ -126,8 +126,8 @@ function initDashboardCharts() {
                     borderWidth: 2
                 },
                 {
-                    label: '订单量',
-                    data: [6000, 7000, 11000, 8000, 13000, 7000],
+                    label: '利润',
+                    data: [49544, 61619, 81795, 93439],
                     borderColor: COLORS.lineGreen,
                     backgroundColor: 'transparent',
                     tension: 0.3,
@@ -148,10 +148,9 @@ function initDashboardCharts() {
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: 20000,
                     grid: { color: COLORS.gridLine },
                     border: { color: COLORS.axisLine },
-                    ticks: { callback: v => v / 1000 + 'K', color: COLORS.textMuted, font: { size: 12 } }
+                    ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'K', color: COLORS.textMuted, font: { size: 12 } }
                 },
                 x: {
                     grid: { display: false },
@@ -193,12 +192,11 @@ function initDashboardCharts() {
     new Chart(document.getElementById('topCompaniesChart'), {
         type: 'bar',
         data: {
-            labels: ['Andrew', 'Nathasya', 'Camilia', 'Bertha', 'Monica'],
+            labels: ['Sean Miller', 'Tamara Chand', 'Raymond Buch', 'Tom Ashbrook', 'Adrian Barton'],
             datasets: [
-                { label: '已完成',     data: [16, 14, 11, 8, 7],           backgroundColor: '#8de3f5' },
-                { label: '等待中',      data: [1.5, 1.5, 1.5, 0.5, 0.5],   backgroundColor: '#a5f6c6' },
-                { label: '进行中',  data: [0.8, 0.5, 0.3, 0.3, 0.2],   backgroundColor: '#c4c6fa' },
-                { label: '未开始',  data: [1, 1, 0.5, 0.5, 0],         backgroundColor: '#ebac4e' }
+                { label: '科技',     data: [15026, 11435, 9070, 8758, 8684], backgroundColor: '#8de3f5' },
+                { label: '家具',     data: [6234, 5231, 4231, 3921, 3876], backgroundColor: '#a5f6c6' },
+                { label: '办公用品', data: [3783, 2386, 1816, 1917, 1914], backgroundColor: '#c4c6fa' }
             ]
         },
         options: {
@@ -212,7 +210,7 @@ function initDashboardCharts() {
                 }
             },
             scales: {
-                x: { stacked: true, max: 20, grid: { color: COLORS.gridLine }, ticks: { color: COLORS.textMuted, font: { size: 12 } } },
+                x: { stacked: true, grid: { color: COLORS.gridLine }, ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'K', color: COLORS.textMuted, font: { size: 12 } } },
                 y: { stacked: true, grid: { display: false }, ticks: { color: COLORS.textMuted, font: { size: 12 } } }
             }
         }
@@ -224,14 +222,14 @@ function initReportCharts() {
     if (window._reportInit) return;
     window._reportInit = true;
 
-    // Targets horizontal bar
+    // Targets horizontal bar — 按类别销售额 vs 利润
     new Chart(document.getElementById('targetsChart'), {
         type: 'bar',
         data: {
-            labels: ['Anthony', 'Harry', 'Tommy', 'Bertha', 'Monica'],
+            labels: ['科技', '家具', '办公用品'],
             datasets: [
-                { label: '已达成目标',  data: [25, 22, 28, 19, 27], backgroundColor: COLORS.barBlue },
-                { label: '剩余目标', data: [25, 28, 22, 31, 23], backgroundColor: COLORS.barOrange }
+                { label: '销售额',  data: [836154, 742000, 719047], backgroundColor: COLORS.barBlue },
+                { label: '利润', data: [145455, 18451, 122491], backgroundColor: COLORS.barOrange }
             ]
         },
         options: {
@@ -246,12 +244,11 @@ function initReportCharts() {
             },
             scales: {
                 x: {
-                    stacked: true,
-                    max: 50,
+                    stacked: false,
                     grid: { color: COLORS.gridLine },
-                    ticks: { stepSize: 10, color: COLORS.textMuted, font: { size: 12 } }
+                    ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'K', color: COLORS.textMuted, font: { size: 12 } }
                 },
-                y: { stacked: true, grid: { display: false }, ticks: { color: COLORS.textMuted, font: { size: 12 } } }
+                y: { stacked: false, grid: { display: false }, ticks: { color: COLORS.textMuted, font: { size: 12 } } }
             }
         }
     });
@@ -260,11 +257,11 @@ function initReportCharts() {
     new Chart(document.getElementById('performanceChart'), {
         type: 'line',
         data: {
-            labels: ['2018年1月', '2019年1月', '2020年1月', '2021年1月', '2022年1月', '2023年1月'],
+            labels: ['2014年', '2015年', '2016年', '2017年'],
             datasets: [
                 {
                     label: '营收',
-                    data: [5000, 10000, 13000, 15124, 10000, 7000],
+                    data: [484247, 470533, 609206, 733215],
                     borderColor: COLORS.lineBlack,
                     backgroundColor: 'transparent',
                     tension: 0.3,
@@ -272,8 +269,8 @@ function initReportCharts() {
                     borderWidth: 2
                 },
                 {
-                    label: '订单量',
-                    data: [4000, 7000, 9000, 7000, 11000, 6000],
+                    label: '利润',
+                    data: [49544, 61619, 81795, 93439],
                     borderColor: COLORS.lineGreen,
                     backgroundColor: 'transparent',
                     tension: 0.3,
@@ -294,9 +291,8 @@ function initReportCharts() {
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: 20000,
                     grid: { color: COLORS.gridLine },
-                    ticks: { callback: v => v / 1000 + 'K', color: COLORS.textMuted, font: { size: 12 } }
+                    ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'K', color: COLORS.textMuted, font: { size: 12 } }
                 },
                 x: {
                     grid: { display: false },
@@ -306,13 +302,13 @@ function initReportCharts() {
         }
     });
 
-    // New Deals bar
+    // New Deals bar — 2017年各月订单数
     new Chart(document.getElementById('newDealsChart'), {
         type: 'bar',
         data: {
             labels: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
             datasets: [{
-                data: [2, 4, 5, 4, 9, 11, 14, 12, 16, 5, 7, 5],
+                data: [69, 53, 118, 116, 118, 133, 111, 111, 226, 147, 261, 224],
                 backgroundColor: COLORS.lineBlack,
                 borderRadius: 0
             }]
@@ -322,9 +318,8 @@ function initReportCharts() {
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: 20,
                     grid: { color: COLORS.gridLine },
-                    ticks: { stepSize: 5, color: COLORS.textMuted, font: { size: 12 } }
+                    ticks: { stepSize: 50, color: COLORS.textMuted, font: { size: 12 } }
                 },
                 x: {
                     grid: { display: false },
